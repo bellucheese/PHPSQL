@@ -6,7 +6,4 @@
  * Time: 1:37 PM
  */
 
-    $fName = "Andrew";
-    $lName = "Bellucci";
-    echo $fName." ".$lName;
 ?>
