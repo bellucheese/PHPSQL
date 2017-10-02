@@ -1,8 +1,10 @@
 <?php
     $table = "<table>";
-    for($rows = 0; $rows <9; $rows++){
-        $table .= "\t<tr>";
-
+    for($rows = 1; $rows <=9; $rows++){
+        $table .= "\n<tr>\n";
+            for($cols = 1; $cols <=9; $cols++) {
+                $table .= "\t<td>". $rows * $cols."</td>\n";
+            }
         $table .= "</tr>\n";
     }
     $table .= "</table>\n";
