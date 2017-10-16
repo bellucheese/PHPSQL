@@ -6,8 +6,21 @@
  * Time: 12:15 PM
  */
 function getDogsAsTable($db){
-    $sql = $db->prepare("SELECT * FROM animals");
+    try{$sql = $db->prepare("SELECT * FROM animals");
     $sql->execute();
-    $results = $sql->fetchAll(PDO::FETCH_ASSOC);
-    return $results;
+    $dogs = $sql->fetchAll(PDO::FETCH_ASSOC);
+    if($sql->rowCount() > 0){
+        $table = "<table>" . PHP_EOL;
+        foreach($dogs as $dog){
+            $table .= "<tr><td>" . $dog['name'] . "</td><td>" . $dog['gender'] . "</td><td>" . $dog['fixed'] . "</td></tr>";
+        }
+        $table .= "</table>" . PHP_EOL;
+    }else{
+       $table = "Life is sad lol, no dogs 4 u";
+    }
+    return $table;
+    }
+    catch(PDOException $e){
+        die("There was a problem retrieving the dogs");
+    }
 }
