@@ -1,0 +1,44 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: Arial;
+}
+a{
+    text-decoration: none;
+    color: #000;
+}
+.wrapper{
+    width: 100%;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Navigation */
+nav{
+    background-color: rgba(0,0,0,.75);
+}
+#navbar{
+    height: 10vh;
+    display: table;
+    width: 100%;
+}
+.nav-button{
+    font-size: 110%;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+    width: 33.33vw;
+
+    color: white;
+    transition: ease 200ms;
+}
+.nav-button:hover{
+    background-color: rgba(0,0,0,.25);
+}
+/* Page Content */
+.page-title{
+    margin-top: 20px;
+    text-align: center;
+}

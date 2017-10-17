@@ -24,3 +24,17 @@ function getDogsAsTable($db){
         die("There was a problem retrieving the dogs");
     }
 }
+function addDog($db, $name, $gender, $fixed){
+    try{
+        $sql= $db->prepare("INSERT INTO animals VALUES (null, :name, :gender, :fixed");
+
+        $sql = $db->prepare("INSERT INTO animals VALUES (null, :name, :gender, :fixed)");
+        $sql->bindParam(':name', $name);
+        $sql->bindParam(':gender', $gender);
+        $sql->bindParam(':fixed', $fixed);
+        $sql->execute();
+        return $sql->rowCount();
+    }catch(PDOException $e){
+        die("There was a problem giving birth to the poppy");
+    }
+}
