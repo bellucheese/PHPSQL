@@ -2,9 +2,6 @@
     margin: 0;
     padding: 0;
 }
-body{
-    font-family: Arial;
-}
 a{
     text-decoration: none;
     color: #000;
@@ -15,6 +12,7 @@ a{
     margin-left: auto;
     margin-right: auto;
 }
+
 /* Navigation */
 nav{
     background-color: rgba(0,0,0,.75);
@@ -41,4 +39,7 @@ nav{
 .page-title{
     margin-top: 20px;
     text-align: center;
+}
+.section{
+
 }
