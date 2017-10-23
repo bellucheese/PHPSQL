@@ -12,6 +12,7 @@
     <title>Add</title>
 </head>
 <body>
+<!-- Add page -->
 <?php
     //includes
     require_once 'assets/dbconn.php';

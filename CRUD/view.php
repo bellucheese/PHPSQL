@@ -25,6 +25,6 @@ include 'assets/dbconn.php';
             echo $table;
         }
     catch(PDOException $e){
-        die("There was a problem retrieving the actors");
+        die("There was a problem retrieving the corps");
 }
 ?>
