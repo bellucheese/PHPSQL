@@ -62,9 +62,9 @@ try{$sql = dbconn()->prepare("SELECT * FROM corps");
     $corps = $sql->fetchAll(PDO::FETCH_ASSOC);
     if($sql->rowCount() > 0){
         $table = "<table class='table table-striped'>" . PHP_EOL;
-        $table .= "<tr><th>ID</th><th>Corp</th><th>Date/Time</th><th>E-Mail</th><th>Zip Code</th><th>Owner</th><th>Phone</th><th>Update</th><th>Delete</th></tr>";
+        $table .= "<tr><th>ID</th><th>Corp</th><th> </th><th> </th></tr>";
         foreach($corps as $corp){
-            $table .= "<tr><td>".$corp['id']."</td><td>".$corp['corp']."</td><td>" . $corp['incorp_dt'] . "</td><td>" . $corp['email'] . "</td><td>" . $corp['zipcode'] . "</td><td>".$corp['owner']."</td><td>".$corp['phone']."</td><td><a href='update.php?id=".$corp['id']."'>Update</a></td><td><a href='assets/delete.php?id=".$corp['id']."'>Delete</a></td></tr>";
+            $table .= "<tr><td>".$corp['id']."</td><td>".$corp['corp']."</td><td><a href='update.php?id=".$corp['id']."'>Update</a></td><td><a href='assets/delete.php?id=".$corp['id']."'>Delete</a></td></tr>";
         }
         $table .= "</table>" . PHP_EOL;
     }else{
