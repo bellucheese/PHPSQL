@@ -18,16 +18,17 @@ include_once 'assets/nav.html';
         <h1 class="page-title">Add to Actors</h1>
 
         <?php
+        //includes
         require_once 'assets/dbconn.php';
         require_once 'assets/actors.php';
-
+        //assignment of variables
         $db = dbconn();
         $action = filter_input(INPUT_POST, 'action', FILTER_SANITIZE_STRING) ?? "";
         $firstname = filter_input(INPUT_POST,'firstname',FILTER_SANITIZE_STRING) ?? "";
         $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING) ?? "";
         $dob = filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_STRING) ?? "";
         $height = filter_input(INPUT_POST, 'height', FILTER_SANITIZE_STRING) ?? "";
-
+        //switch statment to decide which button is being pressed(using later)
         switch ($action){
             case "Add":
                 addActor($db, $firstname, $lastname, $dob, $height);
