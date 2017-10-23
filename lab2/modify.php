@@ -20,19 +20,20 @@ include_once 'assets/nav.html';
         include_once 'assets/dbconn.php';
         include_once 'assets/actors.php';
         echo getActorsAsTablev2(dbconn());
-        if(isset($_POST['edit'])){
-            echo "<form method=\"post\" action=\"#\">
-            Name: <input type=\"text\" name=\"firstname\"><br>
-            LName: <input type=\"text\" name=\"lastname\"><br>
-            BDay: <input type=\"text\" name=\"dob\"><br>
-            Height: <input type=\"text\" name=\"height\"<br>
-            <input type=\"submit\" name=\"action\" value=\"Edit\">
-        </form>";
-        }
-        if(isset($_POST['delete'])){
-            deleteActor(dbconn(),$id);
-        }
-        ?>
+
+/*if(isset($_POST['edit'])){
+    echo "<form method=\"post\" action=\"#\">
+    Name: <input type=\"text\" name=\"firstname\"><br>
+    LName: <input type=\"text\" name=\"lastname\"><br>
+    BDay: <input type=\"text\" name=\"dob\"><br>
+    Height: <input type=\"text\" name=\"height\"<br>
+    <input type=\"submit\" name=\"action\" value=\"Edit\">
+</form>";
+}
+if(isset($_POST['delete'])){
+    deleteActor(dbconn(),$id);
+}*/
+?>
 
 
     </div>

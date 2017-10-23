@@ -6,8 +6,11 @@
  * Time: 10:59 PM
  */
 
+include 'dbconn.php';
+
+$db = dbconn();
 $id = $_GET['id'];
     $sql = $db->prepare("DELETE FROM actors WHERE id=$id;");
     $sql->execute();
 
-header('Location: modify.php');
+header('Location: ../modify.php');
