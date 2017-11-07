@@ -4,40 +4,113 @@
 <a href="update.php">Update/Delete</a> | |
 <a href="view.php">View</a> | |
 <a href="index.php">Add</a>
-</body>
-</html>
 <form method="get" action="#">
     Sort Column:
-    <select>
-        <option>ID</option>
-        <option>Corp. Name</option>
-        <option>ZIP</option>
-        <option>Owner Name</option>
-        <option>Phone Number</option>
+    <select name="sortCol">
+        <option value="none">None</option>
+        <option value="id">ID</option>
+        <option value="corp">Corp. Name</option>
+        <option value="zipcode">ZIP</option>
+        <option value="owner">Owner Name</option>
+        <option value="phone">Phone Number</option>
     </select>
-    <select>
-        <option>Ascending</option>
-        <option>Descending</option>
+    <select name="sortMode">
+        <option value="ASC">Ascending</option>
+        <option value="DESC">Descending</option>
     </select>
-    <input type="button" name="submit" value="Sort">
+    <input type="submit" name="sort" value="Sort">
 </form>
 <form method="get" action="#">
     Search:
-    <select>
-        <option>ID</option>
-        <option>Corp. Name</option>
-        <option>ZIP</option>
-        <option>Owner Name</option>
-        <option>Phone Number</option>
+    <select name="sortCol">
+        <option value="none">None</option>
+        <option value="id">ID</option>
+        <option value="corp">Corp. Name</option>
+        <option value="zipcode">ZIP</option>
+        <option value="owner">Owner Name</option>
+        <option value="phone">Phone Number</option>
     </select>
     <input type="text" name="searchTerm" placeholder="Search Term">
-    <input type="button" name="submit" value="Search">
-    <input type="button" name="submit" value="Reset Search">
+    <input type="submit" name="search" value="Search">
 </form>
+</body>
+</html>
+
 <?php
 include 'assets/dbconn.php';
+$sqlstmt = "SELECT * FROM corps";
+    if(isset($_GET['sort'])){
+        if($_GET['sortCol'] == "none"){
+            $sqlstmt = "SELECT * FROM corps";
+        }
+        else{
+            if($_GET['sortCol'] == "id"){
+                if($_GET['sortMode'] == "DESC"){
+                    $sortmode = "DESC";
+                }else{
+                    $sortmode = "ASC";
+                }
+                $sqlstmt = "SELECT * FROM corps ORDER BY id $sortmode";
+            }
+            elseif($_GET['sortCol'] == "corp"){
+                if($_GET['sortMode'] == "DESC"){
+                    $sortmode = "DESC";
+                }else{
+                    $sortmode = "ASC";
+                }
+                $sqlstmt = "SELECT * FROM corps ORDER BY corp $sortmode";
+            }
+            elseif($_GET['sortCol'] == "zipcode"){
+                if($_GET['sortMode'] == "DESC"){
+                    $sortmode = "DESC";
+                }else{
+                    $sortmode = "ASC";
+                }
+                $sqlstmt = "SELECT * FROM corps ORDER BY zipcode $sortmode";
+            }
+            elseif($_GET['sortCol'] == "owner"){
+                if($_GET['sortMode'] == "DESC"){
+                    $sortmode = "DESC";
+                }else{
+                    $sortmode = "ASC";
+                }
+                $sqlstmt = "SELECT * FROM corps ORDER BY owner $sortmode";
+            }
+            elseif($_GET['sortCol'] == "phone"){
+                if($_GET['sortMode'] == "DESC"){
+                    $sortmode = "DESC";
+                }else{
+                    $sortmode = "ASC";
+                }
+                $sqlstmt = "SELECT * FROM corps ORDER BY phone $sortmode";
+            }
 
-    try{$sql = dbconn()->prepare("SELECT * FROM corps");
+        }
+    }
+    if(isset($_GET['search'])){
+        $searchTerm = $_GET['searchTerm'];
+        if($_GET['sortCol'] == "none"){
+            $sqlstmt = "SELECT * FROM corps";
+        }
+        else{
+            if($_GET['sortCol'] == "id"){
+                $sqlstmt = "SELECT * FROM corps WHERE id LIKE '%$searchTerm%'";
+            }
+            elseif($_GET['sortCol'] == "corp"){
+                $sqlstmt = "SELECT * FROM corps WHERE corp LIKE '%$searchTerm%'";
+            }
+            elseif($_GET['sortCol'] == "zipcode"){
+                $sqlstmt = "SELECT * FROM corps WHERE zipcode LIKE '%$searchTerm%'";
+            }
+            elseif($_GET['sortCol'] == "owner"){
+                $sqlstmt = "SELECT * FROM corps WHERE owner LIKE '%$searchTerm%'";
+            }
+            elseif($_GET['sortCol'] == "phone"){
+                $sqlstmt = "SELECT * FROM corps WHERE phone LIKE '%$searchTerm%'";
+            }
+        }
+    }
+    try{$sql = dbconn()->prepare($sqlstmt);
         $sql->execute();
         $corps = $sql->fetchAll(PDO::FETCH_ASSOC);
         if($sql->rowCount() > 0){
