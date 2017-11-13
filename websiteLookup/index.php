@@ -1,4 +1,16 @@
+<html>
+<head>
+
+</head>
+<body>
+<a href="index.php">Site Entry</a> || <a href="listing.php">Site Listing</a>
+<form action="#" method="post">
+    <input type="text" name="site" placeholder="Ex: https://google.com">
+    <input type="submit" name="submit" value="Submit">
+</form>
 <?php
+include 'assets/add.php';
+require 'assets/dbconn.php';
 /**
  * Created by PhpStorm.
  * User: bellu
@@ -6,6 +18,7 @@
  * Time: 2:22 PM
  */
 if(isset($_POST['submit'])){
+
     if(empty($_POST['site'])){
         echo "The site field is empty, please fill it in.";
     }
@@ -13,21 +26,21 @@ if(isset($_POST['submit'])){
         if(!preg_match("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/",$_POST['site'])){
             echo "Please enter a valid website in the proper format. Ex: https://www.google.com/";
         }else{
-            echo "The website was correctly typed.";
-            //finish the rest of your project bitch. thx.
+            $sites=array();
+            $file = file_get_contents($_POST['site']);
+            echo "<b>".preg_match_all("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/",$file, $matches, PREG_OFFSET_CAPTURE)." links found for </b>\"<a href='".$_POST['site']."'>".$_POST['site']."</a>\"<br><hr>";
+            preg_match_all("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/",$file, $matches, PREG_OFFSET_CAPTURE);
+            foreach ($matches as $match){
+                foreach($match as $m){
+                    array_push($sites, $m[0]);
+                    echo $m[0]."<br>";
+                }
+            }
+            addSite(dbconn(), $_POST['site'], $sites);
+
         }
     }
 }
 ?>
-
-<html>
-<head>
-
-</head>
-<body>
-<form action="#" method="post">
-    <input type="text" name="site" placeholder="Ex: https://google.com">
-    <input type="submit" name="submit" value="Submit">
-</form>
 </body>
 </html>
