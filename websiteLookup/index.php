@@ -26,18 +26,23 @@ if(isset($_POST['submit'])){
         if(!preg_match("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/",$_POST['site'])){
             echo "Please enter a valid website in the proper format. Ex: https://www.google.com/";
         }else{
-            $sites=array();
-            $file = file_get_contents($_POST['site']);
-            echo "<b>".preg_match_all("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/",$file, $matches, PREG_OFFSET_CAPTURE)." links found for </b>\"<a href='".$_POST['site']."'>".$_POST['site']."</a>\"<br><hr>";
-            preg_match_all("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/",$file, $matches, PREG_OFFSET_CAPTURE);
-            foreach ($matches as $match){
-                foreach($match as $m){
-                    array_push($sites, $m[0]);
-                    echo $m[0]."<br>";
+            $sitesFound = siteFind(dbconn(),$_POST['site']);
+            if($sitesFound == 0) {
+                $sites = array();
+                $file = file_get_contents($_POST['site']);
+                echo "<b>" . preg_match_all("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/", $file, $matches, PREG_OFFSET_CAPTURE) . " link(s) found for </b>\"<a href='" . $_POST['site'] . "'>" . $_POST['site'] . "</a>\"<br><hr>";
+                preg_match_all("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/", $file, $matches, PREG_OFFSET_CAPTURE);
+                foreach ($matches as $match) {
+                    foreach ($match as $m) {
+                        array_push($sites, $m[0]);
+                        echo $m[0] . "<br>";
+                    }
                 }
+                addSite(dbconn(), $_POST['site'], $sites);
+            }else{
+                echo $_POST['site']." already exists in the database<br>";
+                echo $sitesFound;
             }
-            addSite(dbconn(), $_POST['site'], $sites);
-
         }
     }
 }
