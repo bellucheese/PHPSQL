@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
                 foreach ($matches as $match) {
                     foreach ($match as $m) {
                         array_push($sites, $m[0]);
-                        echo $m[0] . "<br>";
+                        echo "<a href='".$M[0]."'>".$m[0] . "</a><br>";
                     }
                 }
                 addSite(dbconn(), $_POST['site'], $sites);

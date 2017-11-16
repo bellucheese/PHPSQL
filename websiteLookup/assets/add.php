@@ -30,6 +30,12 @@ function siteFind($db, $site){
         die("There was a problem finding the site lol");
     }
 }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 function grabSitesDropDown($db){
     try{
         $sql = $db->prepare("SELECT * FROM sites");
@@ -50,6 +56,11 @@ function grabSitesDropDown($db){
         die("There was a problem retrieving the sites");
     }
 }
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 function grabSites($db, $option){
     try{
         $sql = $db->prepare("SELECT site_id, date FROM sites WHERE site=:option");
@@ -66,7 +77,7 @@ function grabSites($db, $option){
         $sql->execute();
         $sites = $sql->fetchAll(PDO::FETCH_ASSOC);
         foreach($sites as $site){
-            echo $site['link']."<br>";
+            echo "<a href='".$site['link']."'>".$site['link']."</a><br>";
         }
     }
     catch(PDOException $e){
