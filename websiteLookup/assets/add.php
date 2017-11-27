@@ -18,6 +18,7 @@ function addSite($db, $site, $sites){
         die("There was a problem giving birth to the site lol");
     }
 }
+
 function siteFind($db, $site){
     try{
         $sql = $db->prepare("SELECT Count(*) FROM sites WHERE site=:site");

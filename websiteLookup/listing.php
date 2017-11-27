@@ -14,7 +14,7 @@
 </form>
 <?php
     if(isset($_POST['submit'])){
-        grabSites(dbconn(),$_POST['option']);
+        grabSites(dbconn(),$_GET['option']);
     }
 ?>
 </body>
