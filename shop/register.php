@@ -7,6 +7,9 @@ include_once 'assets/functions.php';
 <h2>Register</h2>
 <hr>
 <?php
+if(isset($_SESSION['user_id'])){
+    header("Location: index.php");
+}
 if(isset($_POST['submit'])){
     if(empty($_POST['email']) || empty($_POST['password'])){
         echo "<div class='alert alert-danger'>ERROR: One or more of the fields is not filled in.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";

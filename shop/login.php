@@ -7,6 +7,12 @@
 <?php
 require_once 'assets/dbconn.php';
 $db = dbconn();
+if(isset($_SESSION['user_id'])){
+    header("Location: index.php");
+}
+if(isset($_GET['login']) == 'failed'){
+    echo "<div class='alert alert-danger'>ERROR: Login failed, username or password do not match up.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+}
 if(isset($_POST['submit'])){
     if(empty($_POST['email']) || empty($_POST['password'])){
         echo "<div class='alert alert-danger'>ERROR: One or more of the fields is not filled in.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";

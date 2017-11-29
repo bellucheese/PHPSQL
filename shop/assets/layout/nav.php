@@ -37,9 +37,17 @@
             <ul class="nav navbar-nav navbar-right">
                 <?php
                     if(!isset($_SESSION['user_id'])){
-                        echo "<li class='nav-link'><a href='login.php'>Login</a></li><li class='nav-link'><a href='register'>Register</a></li>";
+                        echo "<li class='nav-item'><a class='nav-link' href='login.php'>Login</a></li><li class='nav-item'><a class='nav-link' href='register.php'>Register</a></li>";
                     }else{
                         echo "<li class='navbar-text' style='color:white'>" . $_SESSION['email'] . "</li> <li class='nav-item'><form method='post' action=''> <input class='btn btn-primary' type='submit' name='acp' value='AdminCP'> <input class='btn btn-secondary' type='submit' name='logout' value='Logout'></form></li>";
+                    }
+
+                    if(isset($_POST['logout'])){
+                        session_destroy();
+                        header("Location: index.php?logout=success");
+                    }
+                    if(isset($_POST['acp'])){
+                        header("Location: admin.php");
                     }
                 ?>
             </ul>
