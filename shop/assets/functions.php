@@ -30,3 +30,16 @@ function registerUser($db, $email, $password){
         die("There was a problem giving birth to the user");
     }
 }
+
+function createCat($db, $catName){
+    try{
+        $sql = $db->prepare("INSERT INTO categories VALUES (null, :catName)");
+        $sql->bindParam(":catName", $catName);
+        $sql->execute();
+        return $sql->rowCount();
+    }
+    catch(PDOException $e){
+        echo $e;
+        die("There was a problem");
+    }
+}
