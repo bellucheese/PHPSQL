@@ -35,14 +35,14 @@ if(isset($_POST['submit'])){
             if($numRows < 1){
                 header('Location: login.php?login=notEx');
             }else{
+                $hashPasswordCheck = password_verify($_POST['password'],$user['password']);
 
-                if($_POST['password'] != $user['password']){
+                if($hashPasswordCheck == false){
                     header("Location: login.php?login=failed");
-                }else{
+                }elseif($hashPasswordCheck == true){
                     $_SESSION['user_id'] = $user['user_id'];
                     $_SESSION['email'] = $user['email'];
                     header("Location: index.php?login=success");
-                    exit();
                 }
             }
 

@@ -27,9 +27,15 @@ if(isset($_POST['submit'])){
             if(userFind(dbconn(), $_POST['email']) > 0){
                 echo "<div class='alert alert-warning' role='alert'>ERROR: This email already exists, if you own this account, log in <a href='login.php' class='alert-link'><b>HERE</b></a>.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
             }else{
-                registerUser(dbconn(), $_POST['email'], $_POST['password']);
-                session_start();
-                header("Location: index.php?registration=success");
+                if($_POST['password'] != $_POST['confirmPass']){
+                    echo "<div class='alert alert-danger' role='alert'>ERROR: The entered passwords do not match.<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+                    echo "<style>#password{border-color: #cc4d4d;background-color: #ffbfbf;}</style>";
+                }else{
+                    $hashedPass = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    registerUser(dbconn(), $_POST['email'], $hashedPass);
+                    session_start();
+                    header("Location: index.php?registration=success");
+                }
             }
         }
     }
@@ -45,6 +51,11 @@ if(isset($_POST['submit'])){
     <div class="input-group">
         <span id="password" class="input-group-addon"><i class="fa fa-key"></i></span>
         <input id="password" type="password" class="form-control" name="password" value="" placeholder="Password">
+    </div>
+    <br>
+    <div class="input-group">
+        <span id="password" class="input-group-addon"><i class="fa fa-check"></i></span>
+        <input id="password" type="password" class="form-control" name="confirmPass" value="" placeholder="Confirm Password">
     </div>
     <br>
 

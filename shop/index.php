@@ -6,6 +6,9 @@
     if(isset($_GET['login']) == 'success'){
         echo "<div class='alert alert-success'>SUCCESS: <b>Login</b> complete! Feel free to look around and shop!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
     }
+    if(isset($_GET['logout']) == 'success'){
+        echo "<div class='alert alert-success'>SUCCESS: <b>Logout</b> complete! See ya later!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
+    }
 ?>
 
 <div class="card" style="width: 50%;">
