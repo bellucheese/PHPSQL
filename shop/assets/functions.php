@@ -18,6 +18,82 @@ function userFind($db, $email){
     }
 }
 
+function grabSelectedItem($db, $itemID){
+    try{
+        $sql = $db->prepare("SELECT * FROM products WHERE product_id=:id");
+        $sql->bindParam(":id", $itemID);
+        $sql->execute();
+
+        $itemInfo = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        $output = "";
+        foreach($itemInfo as $info){
+            $output .= "<h2>".$info['product']."</h2><hr>";
+            $output .= "<img src='assets/itemIMG/".$info['image']."' style='max-width: 500px;'><br>";
+            $output .= "<b>Price:</b> $". $info['price'];
+            $output .= "<form method='post' action=''><input type='submit' class='btn btn-primary' value='Add to cart'></form>";
+        }
+        echo $output;
+
+    }catch(PDOException $e){
+        echo $e;
+        die("problem lol");
+    }
+}
+function grabAllItems($db){
+    try{
+        $sql = $db->prepare("SELECT * FROM products");
+        $sql->execute();
+
+        $cardInfo = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        //print_r($cardInfo);
+
+
+
+        $cardOutPut = "";
+        $oddEven = 0;
+        //$cardOutPut .= "<div class='row'>";
+        foreach($cardInfo as $info){
+
+            $cardOutPut .= "<div class='card'><img class='card-img-top img-fluid' src='assets/itemIMG/".$info['image']."' style='height: 400px; object-fit: cover;'>";
+            $cardOutPut .= "<div class='card-body'><h4 class='card-title'>".$info['product']."</h4>";
+            $cardOutPut .= "<a href='itemView.php?itemID=".$info['product_id']."' class='btn btn-primary'>View item</a> <span style='float: right; font-weight: bold; font-size: 16px' class='text-right text-primary'>$".$info['price']."</span>";
+            $cardOutPut .= "</div></div><br>";
+
+        }
+        echo $cardOutPut;
+
+    }catch(PDOException $e){
+        echo $e;
+        die("problem lol");
+    }
+}
+function outputItemCard($db, $itemID){
+    try{
+        $sql = $db->prepare("SELECT * FROM products WHERE product_id=:itemID");
+        $sql->bindParam(':itemID', $itemID);
+        $sql->execute();
+
+        $cardInfo = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+        //print_r($cardInfo);
+
+        $cardOutPut = "<div class='col-sm-6'><div class='card'>";
+        foreach($cardInfo as $info){
+            $cardOutPut .= "<img src='assets/itemIMG/".$info['image']."' style='height: 400px; object-fit: cover;'>";
+            $cardOutPut .= "<div class='card-body'><h4 class='card-title'>".$info['product']."</h4>";
+            $cardOutPut .= "<a href='itemView.php?ID=".$info['product_id']."' class='btn btn-primary'>View item</a> <span style='float: right; font-weight: bold; font-size: 16px' class='text-right text-primary'>$".$info['price']."</span>";
+            $cardOutPut .= "</div></div></div>";
+        }
+        echo $cardOutPut;
+
+    }catch(PDOException $e){
+        echo $e;
+        die("problem lol");
+    }
+}
+
 function registerUser($db, $email, $password){
     try{
         $sql = $db->prepare("INSERT INTO users VALUES (null,:email, :password, now())");
@@ -44,6 +120,32 @@ function createCat($db, $catName){
     }
 }
 
+function createPro($db, $category, $proName, $price, $imgURL){
+    try{
+        $sql = $db->prepare("SELECT * FROM categories WHERE category=:category");
+        $sql->bindParam(":category", $category);
+        $sql->execute();
+        $catIDs = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $catID = 0;
+        if($sql->rowCount() > 0){
+            foreach($catIDs as $catsID){
+                $catID = $catsID['category_id'];
+            }
+        }
+        $sql = $db->prepare("INSERT INTO products VALUES (null, :catID, :proName, :price, :imgURL)");
+        $sql->bindParam(":catID", $catID);
+        $sql->bindParam(":proName", $proName);
+        $sql->bindParam(":price", $price);
+        $sql->bindParam(":imgURL", $imgURL);
+        $sql->execute();
+        return $sql->rowCount();
+    }
+    catch(PDOException $e){
+        echo $e;
+        die("There was a problem");
+    }
+}
+
 function dropdownCats($db){
     try{
         $sql = $db->prepare("SELECT * FROM categories");
@@ -56,7 +158,7 @@ function dropdownCats($db){
             }
             $select .= "</select>";
         }else{
-            $select = "Life is sad lol, no sites 4 u";
+            $select = "No categories to select from at this time, please add one.";
         }
         echo $select;
     }

@@ -10,6 +10,11 @@
     <title>Shop of all Shops</title>
     <link rel="stylesheet" type="text/css" href="assets/css/bs-min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <style>
+        .card-img-top {
+            width: 100%;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,13 +31,13 @@
         <div class="collapse navbar-collapse" id="navbarColor01">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Home</a>
+                    <a class="nav-link" href="http://localhost/shop">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Shop</a>
+                    <a class="nav-link" href="http://localhost/shop/itemView.php">Shop</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="http://localhost/shop/about.php">About</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -60,7 +65,7 @@
                             echo 0;
                         }
 
-                        ?> Items)</a></li>
+                        ?> Item(s))</a></li>
             </ul>
         </div>
     </div>
