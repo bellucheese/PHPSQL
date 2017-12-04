@@ -43,3 +43,35 @@ function createCat($db, $catName){
         die("There was a problem");
     }
 }
+
+function dropdownCats($db){
+    try{
+        $sql = $db->prepare("SELECT * FROM categories");
+        $sql->execute();
+        $cats = $sql->fetchAll(PDO::FETCH_ASSOC);
+        if($sql->rowCount() > 0){
+            $select = "<select name='option'>" . PHP_EOL;
+            foreach($cats as $cat){
+                $select .= "<option>".$cat['category']."</option>";
+            }
+            $select .= "</select>";
+        }else{
+            $select = "Life is sad lol, no sites 4 u";
+        }
+        echo $select;
+    }
+    catch(PDOException $e){
+        die("There was a problem retrieving the category");
+    }
+}
+
+function deleteCat($db, $cat){
+    try{
+        $sql = $db->prepare("DELETE FROM categories WHERE category=:cat");
+        $sql->bindParam(":cat", $cat);
+        $sql->execute();
+    }
+    catch(PDOException $e){
+        die("There was a problem deleting the Category");
+    }
+}

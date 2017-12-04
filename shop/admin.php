@@ -13,15 +13,21 @@ if(isset($_GET['action']) == 'added'){
     echo "<div class='alert alert-success'>SUCCESS: <b>Added</b> a new category!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";
 }
 if(isset($_POST['addCat'])){
+    //ADD IF CATEGORY ALREADY EXISTS DON'T ADD AND WARN THE USER
     createCat(dbconn(), $_POST['catName']);
     header('Location: admin.php?action=added');
+}
+if(isset($_GET['delete'])){
+    deleteCat(dbconn(), $_GET['option']);
 }
 ?>
 
 <h3>Management Tools</h3>
 <hr>
 <form method="get" action="">
-    //Create dropdown of categories here in a function
+    <?php
+        dropdownCats(dbconn());
+    ?>
     <input class='btn btn-primary' type="submit" name="edit" value="Edit"> <input class='btn btn-danger' type="submit" name="delete" value="Delete"> <input class='btn btn-secondary'type="button" name="list" value="List"></form>
 
 <hr>
