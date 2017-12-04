@@ -1,5 +1,6 @@
 <?php
     session_start();
+
 ?>
 <!doctype html>
 
@@ -50,6 +51,16 @@
                         header("Location: admin.php");
                     }
                 ?>
+                <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i> Cart (<?php
+                        if(isset($_SESSION['cart']))
+                        {
+                            echo sizeof($_SESSION['cart']);
+                        }
+                        else{
+                            echo 0;
+                        }
+
+                        ?> Items)</a></li>
             </ul>
         </div>
     </div>

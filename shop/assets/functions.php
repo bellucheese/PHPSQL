@@ -75,3 +75,4 @@ function deleteCat($db, $cat){
         die("There was a problem deleting the Category");
     }
 }
+
