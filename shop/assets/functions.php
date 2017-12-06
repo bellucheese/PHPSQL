@@ -31,7 +31,8 @@ function grabSelectedItem($db, $itemID){
             $output .= "<h2>".$info['product']."</h2><hr>";
             $output .= "<img src='assets/itemIMG/".$info['image']."' style='max-width: 500px;'><br>";
             $output .= "<b>Price:</b> $". $info['price'];
-            $output .= "<form method='post' action=''><input type='submit' class='btn btn-primary' value='Add to cart'></form>";
+            $output .= "<br><h3><a href='itemView.php?addCart=true&itemID=".$info['product_id']."'>Add to cart</a></h3>";
+            //$output .= "<form method='get' action=''><input type='submit' class='btn btn-primary' value='Add to Cart' name='addCart'></form>";
         }
         echo $output;
 
@@ -40,6 +41,7 @@ function grabSelectedItem($db, $itemID){
         die("problem lol");
     }
 }
+
 function grabAllItems($db){
     try{
         $sql = $db->prepare("SELECT * FROM products");
