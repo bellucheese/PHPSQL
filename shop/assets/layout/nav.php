@@ -56,10 +56,14 @@
                         header("Location: admin.php");
                     }
                 ?>
-                <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-shopping-cart"></i> Cart (<?php
+                <li class="nav-item"><a class="nav-link" href="cart.php"><i class="fa fa-shopping-cart"></i> Cart (<?php
                         if(isset($_SESSION['cart']))
                         {
-                            echo sizeof($_SESSION['cart']);
+                            $cartItems = 0;
+                            foreach($_SESSION['cart'] as $key=>&$val){
+                                $cartItems += (int)$val['qty'];
+                            }
+                            echo $cartItems;
                         }
                         else{
                             echo 0;
